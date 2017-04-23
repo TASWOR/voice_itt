@@ -1,11 +1,25 @@
 
-To run the project, you need to install json in client and server.
+To run the project.
+1)You need to install node modules in server(root).
 Command:
 ```
 npm install
 ```
-Next, start the server.
+2)You need go to folder client.
 Command:
+```
+cd client
+```
+3)You need to install node modules in client.
+```
+npm install
+```
+4)You need go back in folder client(root)
+
+```
+cd..
+```
+5)Write a command to start project.
 ```
 npm start
 ```
