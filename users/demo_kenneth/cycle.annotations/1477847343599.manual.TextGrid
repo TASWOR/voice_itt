@@ -1,0 +1,400 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 66.3138125 
+tiers? <exists> 
+size = 4 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "userPressed" 
+        xmin = 0 
+        xmax = 66.3138125 
+        intervals: size = 15 
+        intervals [1]:
+            xmin = 0 
+            xmax = 34.1785 
+            text = "" 
+        intervals [2]:
+            xmin = 34.1785 
+            xmax = 36.2613125 
+            text = "*:: wasMistake : false | word : form" 
+        intervals [3]:
+            xmin = 36.2613125 
+            xmax = 37.3026875 
+            text = "*::" 
+        intervals [4]:
+            xmin = 37.3026875 
+            xmax = 40.762875 
+            text = "" 
+        intervals [5]:
+            xmin = 40.762875 
+            xmax = 44.062375 
+            text = "*:: wasMistake : false | word : ." 
+        intervals [6]:
+            xmin = 44.062375 
+            xmax = 46.25275 
+            text = "*::" 
+        intervals [7]:
+            xmin = 46.25275 
+            xmax = 49.59375 
+            text = "" 
+        intervals [8]:
+            xmin = 49.59375 
+            xmax = 51.99125 
+            text = "*:: wasMistake : false | word : in the air" 
+        intervals [9]:
+            xmin = 51.99125 
+            xmax = 52.968625 
+            text = "*::" 
+        intervals [10]:
+            xmin = 52.968625 
+            xmax = 56.471375 
+            text = "" 
+        intervals [11]:
+            xmin = 56.471375 
+            xmax = 58.455 
+            text = "*:: wasMistake : false | word : rainbow" 
+        intervals [12]:
+            xmin = 58.455 
+            xmax = 59.2795 
+            text = "*::" 
+        intervals [13]:
+            xmin = 59.2795 
+            xmax = 63.046875 
+            text = "" 
+        intervals [14]:
+            xmin = 63.046875 
+            xmax = 65.2384375 
+            text = "*:: wasMistake : false | word : raindrops" 
+        intervals [15]:
+            xmin = 65.2384375 
+            xmax = 66.3138125 
+            text = "*::" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "automatic" 
+        xmin = 0 
+        xmax = 66.3138125 
+        intervals: size = 11 
+        intervals [1]:
+            xmin = 0 
+            xmax = 34.6880625 
+            text = "" 
+        intervals [2]:
+            xmin = 34.6880625 
+            xmax = 35.6225625 
+            text = "form" 
+        intervals [3]:
+            xmin = 35.6225625 
+            xmax = 41.321125 
+            text = "" 
+        intervals [4]:
+            xmin = 41.321125 
+            xmax = 43.0685625 
+            text = "." 
+        intervals [5]:
+            xmin = 43.0685625 
+            xmax = 49.9849375 
+            text = "" 
+        intervals [6]:
+            xmin = 49.9849375 
+            xmax = 51.278 
+            text = "in the air" 
+        intervals [7]:
+            xmin = 51.278 
+            xmax = 56.839875 
+            text = "" 
+        intervals [8]:
+            xmin = 56.839875 
+            xmax = 57.7991875 
+            text = "rainbow" 
+        intervals [9]:
+            xmin = 57.7991875 
+            xmax = 63.4886875 
+            text = "" 
+        intervals [10]:
+            xmin = 63.4886875 
+            xmax = 64.4970625 
+            text = "raindrops" 
+        intervals [11]:
+            xmin = 64.4970625 
+            xmax = 66.3138125 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "manual" 
+        xmin = 0 
+        xmax = 66.3138125 
+        intervals: size = 11 
+        intervals [1]:
+            xmin = 0 
+            xmax = 34.83556771282694 
+            text = "" 
+        intervals [2]:
+            xmin = 34.83556771282694 
+            xmax = 35.6225625 
+            text = "form" 
+        intervals [3]:
+            xmin = 35.6225625 
+            xmax = 41.321125 
+            text = "" 
+        intervals [4]:
+            xmin = 41.321125 
+            xmax = 43.0685625 
+            text = "." 
+        intervals [5]:
+            xmin = 43.0685625 
+            xmax = 50.188694188460246 
+            text = "" 
+        intervals [6]:
+            xmin = 50.188694188460246 
+            xmax = 51.278 
+            text = "in the air" 
+        intervals [7]:
+            xmin = 51.278 
+            xmax = 57.053208116805926 
+            text = "" 
+        intervals [8]:
+            xmin = 57.053208116805926 
+            xmax = 57.7991875 
+            text = "rainbow" 
+        intervals [9]:
+            xmin = 57.7991875 
+            xmax = 63.5881231877144 
+            text = "" 
+        intervals [10]:
+            xmin = 63.5881231877144 
+            xmax = 64.4970625 
+            text = "raindrops" 
+        intervals [11]:
+            xmin = 64.4970625 
+            xmax = 66.3138125 
+            text = "" 
+    item [4]:
+        class = "IntervalTier" 
+        name = "vad" 
+        xmin = 0 
+        xmax = 66.3138125 
+        intervals: size = 55 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.12 
+            text = "" 
+        intervals [2]:
+            xmin = 0.12 
+            xmax = 7.07775 
+            text = "*::" 
+        intervals [3]:
+            xmin = 7.07775 
+            xmax = 10.791125 
+            text = "" 
+        intervals [4]:
+            xmin = 10.791125 
+            xmax = 10.7961875 
+            text = "*::" 
+        intervals [5]:
+            xmin = 10.7961875 
+            xmax = 12.7571875 
+            text = "" 
+        intervals [6]:
+            xmin = 12.7571875 
+            xmax = 13.7931875 
+            text = "*::" 
+        intervals [7]:
+            xmin = 13.7931875 
+            xmax = 14.453875 
+            text = "" 
+        intervals [8]:
+            xmin = 14.453875 
+            xmax = 15.435375 
+            text = "*::" 
+        intervals [9]:
+            xmin = 15.435375 
+            xmax = 15.70425 
+            text = "" 
+        intervals [10]:
+            xmin = 15.70425 
+            xmax = 15.8385625 
+            text = "*::" 
+        intervals [11]:
+            xmin = 15.8385625 
+            xmax = 16.7953125 
+            text = "" 
+        intervals [12]:
+            xmin = 16.7953125 
+            xmax = 18.0688125 
+            text = "*::" 
+        intervals [13]:
+            xmin = 18.0688125 
+            xmax = 18.4905 
+            text = "" 
+        intervals [14]:
+            xmin = 18.4905 
+            xmax = 18.7829375 
+            text = "*::" 
+        intervals [15]:
+            xmin = 18.7829375 
+            xmax = 19.0704375 
+            text = "" 
+        intervals [16]:
+            xmin = 19.0704375 
+            xmax = 20.1314375 
+            text = "*::" 
+        intervals [17]:
+            xmin = 20.1314375 
+            xmax = 21.2441875 
+            text = "" 
+        intervals [18]:
+            xmin = 21.2441875 
+            xmax = 22.2459375 
+            text = "*::" 
+        intervals [19]:
+            xmin = 22.2459375 
+            xmax = 22.4329375 
+            text = "" 
+        intervals [20]:
+            xmin = 22.4329375 
+            xmax = 22.4394375 
+            text = "*::" 
+        intervals [21]:
+            xmin = 22.4394375 
+            xmax = 22.7368125 
+            text = "" 
+        intervals [22]:
+            xmin = 22.7368125 
+            xmax = 23.7841875 
+            text = "*::" 
+        intervals [23]:
+            xmin = 23.7841875 
+            xmax = 24.095375 
+            text = "" 
+        intervals [24]:
+            xmin = 24.095375 
+            xmax = 25.227375 
+            text = "*::" 
+        intervals [25]:
+            xmin = 25.227375 
+            xmax = 25.4514375 
+            text = "" 
+        intervals [26]:
+            xmin = 25.4514375 
+            xmax = 25.548375 
+            text = "*::" 
+        intervals [27]:
+            xmin = 25.548375 
+            xmax = 28.2706875 
+            text = "" 
+        intervals [28]:
+            xmin = 28.2706875 
+            xmax = 29.4355 
+            text = "*::" 
+        intervals [29]:
+            xmin = 29.4355 
+            xmax = 30.05575 
+            text = "" 
+        intervals [30]:
+            xmin = 30.05575 
+            xmax = 30.131375 
+            text = "*::" 
+        intervals [31]:
+            xmin = 30.131375 
+            xmax = 30.52125 
+            text = "" 
+        intervals [32]:
+            xmin = 30.52125 
+            xmax = 31.5946875 
+            text = "*::" 
+        intervals [33]:
+            xmin = 31.5946875 
+            xmax = 32.4388125 
+            text = "" 
+        intervals [34]:
+            xmin = 32.4388125 
+            xmax = 33.4580625 
+            text = "*::" 
+        intervals [35]:
+            xmin = 33.4580625 
+            xmax = 34.6880625 
+            text = "" 
+        intervals [36]:
+            xmin = 34.6880625 
+            xmax = 35.6225625 
+            text = "*::" 
+        intervals [37]:
+            xmin = 35.6225625 
+            xmax = 36.369375 
+            text = "" 
+        intervals [38]:
+            xmin = 36.369375 
+            xmax = 36.4055 
+            text = "*::" 
+        intervals [39]:
+            xmin = 36.4055 
+            xmax = 41.321125 
+            text = "" 
+        intervals [40]:
+            xmin = 41.321125 
+            xmax = 41.3819375 
+            text = "*::" 
+        intervals [41]:
+            xmin = 41.3819375 
+            xmax = 41.5845 
+            text = "" 
+        intervals [42]:
+            xmin = 41.5845 
+            xmax = 43.0685625 
+            text = "*::" 
+        intervals [43]:
+            xmin = 43.0685625 
+            xmax = 48.571125 
+            text = "" 
+        intervals [44]:
+            xmin = 48.571125 
+            xmax = 48.5788125 
+            text = "*::" 
+        intervals [45]:
+            xmin = 48.5788125 
+            xmax = 49.9849375 
+            text = "" 
+        intervals [46]:
+            xmin = 49.9849375 
+            xmax = 51.278 
+            text = "*::" 
+        intervals [47]:
+            xmin = 51.278 
+            xmax = 52.1734375 
+            text = "" 
+        intervals [48]:
+            xmin = 52.1734375 
+            xmax = 52.232 
+            text = "*::" 
+        intervals [49]:
+            xmin = 52.232 
+            xmax = 56.839875 
+            text = "" 
+        intervals [50]:
+            xmin = 56.839875 
+            xmax = 57.7991875 
+            text = "*::" 
+        intervals [51]:
+            xmin = 57.7991875 
+            xmax = 58.5430625 
+            text = "" 
+        intervals [52]:
+            xmin = 58.5430625 
+            xmax = 58.5835625 
+            text = "*::" 
+        intervals [53]:
+            xmin = 58.5835625 
+            xmax = 63.4886875 
+            text = "" 
+        intervals [54]:
+            xmin = 63.4886875 
+            xmax = 64.4970625 
+            text = "*::" 
+        intervals [55]:
+            xmin = 64.4970625 
+            xmax = 66.3138125 
+            text = "" 

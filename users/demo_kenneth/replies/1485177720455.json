@@ -1,0 +1,1 @@
+{"username":"demo_kenneth","replykey":"1485177720455","words":[{"txt":"in the air","likelihood":1},{"txt":"1485177720455","likelihood":-1.0}],"error":"Out of dictionary","ood_reason":"+ Energy-pattern too far [2.5082795483207736>0.9], from 1st choice\n","time_offset_in_probe":[1.8900000000000001,3.14]}

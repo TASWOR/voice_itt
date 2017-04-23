@@ -1,0 +1,67 @@
+{
+  "deviceInfo" : {
+    "availableInputs" : "Optional([<AVAudioSessionPortDescription: 0x17401eee0, type = MicrophoneBuiltIn; name = iPad Microphone; UID = Built-In Microphone; selectedDataSource = Right>])",
+    "localizedModel" : "iPad",
+    "inputs" : "Optional([<AVAudioSessionDataSourceDescription: 0x17401efd0, ID = 1835216945; name = Right>, <AVAudioSessionDataSourceDescription: 0x17401eff0, ID = 1835216946; name = Back>, <AVAudioSessionDataSourceDescription: 0x17401f010, ID = 1835216947; name = Front>])",
+    "preferredInput" : "nil",
+    "devModel2" : "iPad Mini 4",
+    "sessionMode" : "AVAudioSessionModeMeasurement",
+    "devModel" : "iPad",
+    "gainLevel" : "0.9",
+    "systemName" : "iOS",
+    "inputGainSettable" : "true",
+    "systemVersion" : "10.0.2",
+    "name" : "miniMiniVoiceitt"
+  },
+  "words" : [
+    {
+      "startPressed_in_secs" : 16.7025,
+      "word" : "raindrops",
+      "nextPressed_in_secs" : 20.4783125,
+      "wasMistake" : false,
+      "stopPressed_in_secs" : 19.3600625
+    },
+    {
+      "startPressed_in_secs" : 23.986375,
+      "word" : "in the air",
+      "nextPressed_in_secs" : 29.037,
+      "wasMistake" : false,
+      "stopPressed_in_secs" : 26.3320625
+    },
+    {
+      "startPressed_in_secs" : 33.3123125,
+      "word" : ".",
+      "nextPressed_in_secs" : 41.5629375,
+      "wasMistake" : false,
+      "stopPressed_in_secs" : 37.3876875
+    },
+    {
+      "startPressed_in_secs" : 63.4144375,
+      "word" : "rainbow",
+      "nextPressed_in_secs" : "",
+      "wasMistake" : true,
+      "stopPressed_in_secs" : 68.0984375
+    },
+    {
+      "startPressed_in_secs" : 68.59831250000001,
+      "word" : "rainbow",
+      "nextPressed_in_secs" : "",
+      "wasMistake" : true,
+      "stopPressed_in_secs" : 69.21525
+    },
+    {
+      "startPressed_in_secs" : 71.8856875,
+      "word" : "rainbow",
+      "nextPressed_in_secs" : 76.05012499999999,
+      "wasMistake" : false,
+      "stopPressed_in_secs" : 74.34099999999999
+    },
+    {
+      "startPressed_in_secs" : 78.98275,
+      "word" : "form",
+      "nextPressed_in_secs" : 81.6913125,
+      "wasMistake" : false,
+      "stopPressed_in_secs" : 80.7495625
+    }
+  ]
+}

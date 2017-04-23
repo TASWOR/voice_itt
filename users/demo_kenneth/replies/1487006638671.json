@@ -1,0 +1,1 @@
+{"username":"demo_kenneth","replykey":"1487006638671","words":[{"txt":"raindrops","likelihood":1},{"txt":"1487006638671","likelihood":-1.0}],"error":"","ood_reason":"+ Energy-pattern too far [3.5151706811301455>0.9], from 1st choice\n","time_offset_in_probe":[1.19,2.07]}

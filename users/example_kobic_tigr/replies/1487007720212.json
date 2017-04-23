@@ -1,0 +1,1 @@
+{"username":"example_kobic_tigr","replykey":"1487007720212","words":[{"txt":"2","likelihood":1},{"txt":"1487007720212","likelihood":-1.0}],"error":"Out of dictionary","ood_reason":"+ Score too high (> 0.33)\n+ Energy-pattern too far [0.8548676994135291>0.9], from 1st choice\n","time_offset_in_probe":[0.01,0.2]}

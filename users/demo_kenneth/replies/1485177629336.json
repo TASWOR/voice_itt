@@ -1,0 +1,1 @@
+{"username":"demo_kenneth","replykey":"1485177629336","words":[{"txt":".","likelihood":1},{"txt":"1485177629336","likelihood":-1.0}],"error":"Out of dictionary","ood_reason":"+ Energy-pattern too far [1.5919756236653488>0.9], from 1st choice\n","time_offset_in_probe":[0.0,4.0200000000000005]}

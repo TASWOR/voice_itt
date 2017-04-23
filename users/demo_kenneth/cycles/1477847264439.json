@@ -1,0 +1,53 @@
+{
+  "deviceInfo" : {
+    "availableInputs" : "Optional([<AVAudioSessionPortDescription: 0x17401eee0, type = MicrophoneBuiltIn; name = iPad Microphone; UID = Built-In Microphone; selectedDataSource = Right>])",
+    "localizedModel" : "iPad",
+    "inputs" : "Optional([<AVAudioSessionDataSourceDescription: 0x17401efd0, ID = 1835216945; name = Right>, <AVAudioSessionDataSourceDescription: 0x17401eff0, ID = 1835216946; name = Back>, <AVAudioSessionDataSourceDescription: 0x17401f010, ID = 1835216947; name = Front>])",
+    "preferredInput" : "nil",
+    "devModel2" : "iPad Mini 4",
+    "sessionMode" : "AVAudioSessionModeMeasurement",
+    "devModel" : "iPad",
+    "gainLevel" : "0.9",
+    "systemName" : "iOS",
+    "inputGainSettable" : "true",
+    "systemVersion" : "10.0.2",
+    "name" : "miniMiniVoiceitt"
+  },
+  "words" : [
+    {
+      "startPressed_in_secs" : 4.394,
+      "word" : "raindrops",
+      "nextPressed_in_secs" : 9.026249999999999,
+      "wasMistake" : false,
+      "stopPressed_in_secs" : 8.091625000000001
+    },
+    {
+      "startPressed_in_secs" : 12.940625,
+      "word" : ".",
+      "nextPressed_in_secs" : 17.88125,
+      "wasMistake" : false,
+      "stopPressed_in_secs" : 15.4154375
+    },
+    {
+      "startPressed_in_secs" : 22.203625,
+      "word" : "rainbow",
+      "nextPressed_in_secs" : 25.1005625,
+      "wasMistake" : false,
+      "stopPressed_in_secs" : 24.0759375
+    },
+    {
+      "startPressed_in_secs" : 27.7250625,
+      "word" : "form",
+      "nextPressed_in_secs" : 30.667,
+      "wasMistake" : false,
+      "stopPressed_in_secs" : 29.9093125
+    },
+    {
+      "startPressed_in_secs" : 32.7713125,
+      "word" : "in the air",
+      "nextPressed_in_secs" : 36.1671875,
+      "wasMistake" : false,
+      "stopPressed_in_secs" : 35.30925
+    }
+  ]
+}
