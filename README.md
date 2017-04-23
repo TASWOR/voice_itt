@@ -25,9 +25,7 @@ cd..
 ```
 npm start
 ```
-
-##Change localhost
-
+## Change localhost
 Change localhost in file :
 ```
 client\node_modules\react-scripts\scripts\start.js
