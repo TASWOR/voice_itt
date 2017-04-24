@@ -47,6 +47,21 @@ var replyInformation = function(name ,filename)
   }
 }
 
+app.get('/users/:name/recognize/:recognizeFileName', function(req,res)
+{
+  console.log("SJDHGAJSHAJSHDGJASDAJ");
+  fs.readFile("./users/"+req.params.name+"/recognize/"+req.params.recognizeFileName, function (err,data) {
+    if (err) {
+      res.writeHead(404);
+      res.end(JSON.stringify(err));
+      return;
+    }
+    res.setHeader("Content-Type", "audio/vnd.wave");
+    res.writeHead(200);
+    res.end(data);
+  });
+})
+
 app.get('/users/:name/replies' ,(req,res) =>
 {
 // io.on('connection', function(socket){

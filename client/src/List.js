@@ -6,6 +6,7 @@ import io from 'socket.io-client';
 import ReactTable from 'react-table';
 var Select = require('react-select');
 import Switch from 'react-toggle-switch'
+import Player from './Player.js'
 import './App.css';
 class List extends Component {
   constructor(props){
@@ -146,12 +147,8 @@ component.setState({
 
         </div>
       </div>
-        <div id="text">
-      {this.state.text}
-
-      {this.state.likelihood}
-      <br/>
-      {this.state.error}
+        <div id="texst">
+      <Player/>
       </div>
 
 
