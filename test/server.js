@@ -69,4 +69,17 @@ it('Have text field?!',function(done){
       done();
     });
   });
+it('Can connect to socket', function (done) {
+    var io = require('socket.io-client');
+    var options = {
+      transports: ['websocket'],
+      'force new connection': true,
+      path: '/socket.io-client'
+    };
+    var client = io("http://localhost:3300/", options);
+    client.once('connect', function () {
+      console.log('connected')
+      done();
+    });
+  });
 });

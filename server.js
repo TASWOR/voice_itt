@@ -33,30 +33,29 @@ var replyInformation = function(name ,filename)
   var contents = JSON.parse(content);
   var likelihood = 'Empty text';
   var text = 'Empty text';
+  var sound = contents.replykey;
 
   if (contents.words[0]!=undefined){
      text = contents.words[0].txt;
      likelihood = contents.words[0].likelihood;
-
   }
   return {
     timestamp,
     likelihood,
     text,
+    sound
 
   }
 }
 
 app.get('/users/:name/recognize/:recognizeFileName', function(req,res)
 {
-  console.log("SJDHGAJSHAJSHDGJASDAJ");
   fs.readFile("./users/"+req.params.name+"/recognize/"+req.params.recognizeFileName, function (err,data) {
     if (err) {
       res.writeHead(404);
       res.end(JSON.stringify(err));
       return;
     }
-    res.setHeader("Content-Type", "audio/vnd.wave");
     res.writeHead(200);
     res.end(data);
   });
@@ -114,19 +113,22 @@ app.get('/users/:name/replies/:repliesFileName', function(req,res)
   fs.readFile('./users/'+req.params.name+'/replies/'+req.params.repliesFileName, (err, data) => {  //читает файлы
     var content= data.toString();
     var contents = JSON.parse(content);
-    if (contents.words[0]==undefined){
 
+    var sound =contents.replykey;
+    var error = contents.error;
+
+    if (contents.words[0]==undefined){
       console.log('Empty Text')
-      res.status(200).send({replyText:'Empty Text'},{likelihoodText:'Empty Text'})
+      res.status(200).send({replyText:'Empty Text', likelihoodText:'Empty Text', error, sound})
     }
+
     else{
     var text = req.params.name+" say: "+ contents.words[0].txt + " ";
     console.log(text);
     var likelihood = req.params.name+" likelihood: "+ contents.words[0].likelihood;
         console.log(likelihood);
-        var error = req.params.name+" error: "+ contents.error;
             console.log(error);
-    res.status(200).send({replyText:text,likelihoodText:likelihood,error:error})
+    res.status(200).send({replyText:text,likelihoodText:likelihood,error,sound})
 }
 
 

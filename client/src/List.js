@@ -8,6 +8,7 @@ var Select = require('react-select');
 import Switch from 'react-toggle-switch'
 import Player from './Player.js'
 import './App.css';
+import Wavesurfer from 'react-wavesurfer';
 class List extends Component {
   constructor(props){
     super(props);
@@ -18,10 +19,33 @@ class List extends Component {
       selectedUser:'',
       selectFile:'',
       error:'',
-      switchUpdate:true
+      switchUpdate:true,
+      sound:'',
+      playing: false,
+      pos: 0
     }
+    this.handleTogglePlay = this.handleTogglePlay.bind(this);
+    this.handlePosChange = this.handlePosChange.bind(this);
+    this.resetPostion = this.resetPostion.bind(this);
   }
 
+
+  resetPostion(){
+    this.setState({
+      pos: 0.0000001,
+      playing:false
+    });
+  }
+  handleTogglePlay() {
+    this.setState({
+      playing: !this.state.playing
+    });
+  }
+  handlePosChange(e) {
+    this.setState({
+      pos: e.originalArgs[0]
+    });
+  }
 
 readText(repliesFileName)
 {
@@ -32,11 +56,15 @@ readText(repliesFileName)
 var text = data.replyText;
 var likelihood = data.likelihoodText;
 var error = data.error;
+var sound = data.sound;
 component.setState({
   text,
   likelihood,
   selectFile,
-  error
+  error,
+  sound,
+  playing: false,
+  pos: 0.001
 })
 })
 }
@@ -69,7 +97,10 @@ component.setState({
       });
       component.setState({
         files,
-        selectedUser
+        selectedUser,
+        sound:null,
+        playing: false,
+        pos: 0.001
       });
     });
   }
@@ -105,6 +136,9 @@ component.setState({
     },{
       header: 'text',
       accessor: 'text'
+    },{
+      header: 'sound',
+      accessor: 'sound'
     } ]
     //onMount
     return (
@@ -147,12 +181,23 @@ component.setState({
 
         </div>
       </div>
-        <div id="texst">
-      <Player/>
-      </div>
 
-
-              </div>
+              <div id="text">
+              {this.state.sound}
+              <br/>
+              {this.state.error != "" ?" error: " + this.state.error : ""}<br/>
+              {console.log(this.state.users)}
+              {console.log(this.state.sound)}
+              <Wavesurfer
+                audioFile={this.state.sound != null ? "http://localhost:3000/users/"+this.state.selectedUser+"/recognize/"+this.state.sound+".wav" : undefined}
+                pos={this.state.pos}
+                onPosChange={this.handlePosChange}
+                playing={this.state.playing}
+              />
+              <button onClick={this.handleTogglePlay}>Play/Pause</button>
+              <button onClick={this.resetPostion}>Reset</button>
+            </div>
+            </div>
     );
   }
 }

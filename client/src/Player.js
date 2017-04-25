@@ -33,8 +33,9 @@ class Player extends Component {
     render() {
       return (
         <div>
+
           <Wavesurfer
-            audioFile={'http://localhost:3333/users/demo_ebony/recognize/1483542398535.wav'}
+            audioFile={'http://localhost:3000/users/demo_ebony/recognize/1483542422135.wav'}
             pos={this.state.pos}
             onPosChange={this.handlePosChange}
             playing={this.state.playing}
