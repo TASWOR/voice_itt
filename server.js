@@ -107,6 +107,7 @@ app.get('/users/:name/replies/:repliesFileName', function(req,res)
   fs.readFile('./users/'+req.params.name+'/replies/'+req.params.repliesFileName, (err, data) => {  //читает файлы
     var content= data.toString();
     var contents = JSON.parse(content);
+<<<<<<< HEAD
 
     var sound =contents.replykey;
     var error = contents.error;
@@ -123,6 +124,24 @@ app.get('/users/:name/replies/:repliesFileName', function(req,res)
     var likelihood =" likelihood: "+ contents.words[0].likelihood;
 
     res.status(200).send({replyText:text,likelihoodText:likelihood,error,sound,contents,name})
+=======
+
+    var sound =contents.replykey;
+    var error = contents.error;
+
+    if (contents.words[0]==undefined){
+      console.log('Empty Text')
+      res.status(200).send({replyText:'Empty Text', likelihoodText:'Empty Text', error, sound})
+    }
+
+    else{
+    var text = req.params.name+" say: "+ contents.words[0].txt + " ";
+    console.log(text);
+    var likelihood = req.params.name+" likelihood: "+ contents.words[0].likelihood;
+        console.log(likelihood);
+            console.log(error);
+    res.status(200).send({replyText:text,likelihoodText:likelihood,error,sound})
+>>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
 }
 
 

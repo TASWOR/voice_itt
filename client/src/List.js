@@ -9,8 +9,11 @@ import Switch from 'react-toggle-switch'
 import Player from './Player.js'
 import './App.css';
 import Wavesurfer from 'react-wavesurfer';
+<<<<<<< HEAD
 import JSONTree from 'react-json-tree';
 import { Map } from 'immutable'
+=======
+>>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
 class List extends Component {
   constructor(props){
     super(props);
@@ -24,9 +27,13 @@ class List extends Component {
       switchUpdate:true,
       sound:'',
       playing: false,
+<<<<<<< HEAD
       pos: 0,
       contents :'',
       name
+=======
+      pos: 0
+>>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
     }
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handlePosChange = this.handlePosChange.bind(this);
@@ -37,7 +44,11 @@ class List extends Component {
   resetPostion(){
     this.setState({
       pos: 0.0000001,
+<<<<<<< HEAD
       playing:!this.state.playing
+=======
+      playing:false
+>>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
     });
   }
   handleTogglePlay() {
@@ -61,8 +72,11 @@ var text = data.replyText;
 var likelihood = data.likelihoodText;
 var error = data.error;
 var sound = data.sound;
+<<<<<<< HEAD
 var contents =data;
 var name = data.name;
+=======
+>>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
 component.setState({
   text,
   likelihood,
@@ -70,9 +84,13 @@ component.setState({
   error,
   sound,
   playing: false,
+<<<<<<< HEAD
   pos: 0.001,
   contents,
   name
+=======
+  pos: 0.001
+>>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
 })
 })
 }
@@ -144,7 +162,14 @@ component.setState({
     },{
       header: 'text',
       accessor: 'text'
+<<<<<<< HEAD
     }]
+=======
+    },{
+      header: 'sound',
+      accessor: 'sound'
+    } ]
+>>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
     //onMount
     return (
       <div>
@@ -180,6 +205,7 @@ component.setState({
       />
 
       </div>
+<<<<<<< HEAD
 
               <div id="center">
               <font color="red">{this.state.name != "" ?"Name: " + this.state.name : " "}</font><br/>
@@ -218,6 +244,25 @@ component.setState({
             <JSONTree data={this.state.contents.contents} />
             </div>
               </div>
+=======
+
+              <div id="text">
+              {this.state.sound}
+              <br/>
+              {this.state.error != "" ?" error: " + this.state.error : ""}<br/>
+              {console.log(this.state.users)}
+              {console.log(this.state.sound)}
+              <Wavesurfer
+                audioFile={this.state.sound != null ? "http://localhost:3000/users/"+this.state.selectedUser+"/recognize/"+this.state.sound+".wav" : undefined}
+                pos={this.state.pos}
+                onPosChange={this.handlePosChange}
+                playing={this.state.playing}
+              />
+              <button onClick={this.handleTogglePlay}>Play/Pause</button>
+              <button onClick={this.resetPostion}>Reset</button>
+            </div>
+            </div>
+>>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
     );
   }
 }
