@@ -8,9 +8,6 @@ var bodyParser = require('body-parser')
 var json =  './users/';
 var replies = '/replies/';
 
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/client/public/index.html');
-// })
 
 app.get('/users/names' , (req,res) =>{
   fs.readdir(json,(err,files)=> //все файлы показывает в пути
@@ -33,13 +30,11 @@ var replyInformation = function(name ,filename)
   var contents = JSON.parse(content);
   var likelihood = 'Empty text';
   var text = 'Empty text';
-  var sound = 'Empty text';
+  var sound = contents.replykey;
 
   if (contents.words[0]!=undefined){
      text = contents.words[0].txt;
      likelihood = contents.words[0].likelihood;
-     sound = contents.replykey;
-
   }
   return {
     timestamp,
@@ -71,19 +66,16 @@ app.get('/users/:name/replies' ,(req,res) =>
 var namespaceName=`/users/${req.params.name}/replies`;
 if(io.nsps[namespaceName]!=undefined)
 {
-  console.log('ds')
+
 }
 else
   {
-    console.log('no')
-    console.log(io.nsps)
+
     var namespace = io.of(namespaceName);
     var filename = `./users/${req.params.name}/replies`;
     fs.watch(filename, function(event, filename){
       if(event =='rename')
       {
-      console.log('From watch, event: ' + event);
-      console.log('From watch: ' + filename);
       namespace.emit('update',replyInformation(req.params.name,filename))
 }
     });
@@ -116,20 +108,21 @@ app.get('/users/:name/replies/:repliesFileName', function(req,res)
     var content= data.toString();
     var contents = JSON.parse(content);
 
+    var sound =contents.replykey;
+    var error = contents.error;
+    console.log(contents)
     if (contents.words[0]==undefined){
-      console.log('Empty Text')
-      res.status(200).send({replyText:'Empty Text'},{likelihoodText:'Empty Text'})
+
+      res.status(200).send({replyText:'Empty Text', likelihoodText:'Empty Text', error, sound,contents,name})
     }
 
     else{
-    var sound =contents.replykey;
-    var text = req.params.name+" say: "+ contents.words[0].txt + " ";
-    console.log(text);
-    var likelihood = req.params.name+" likelihood: "+ contents.words[0].likelihood;
-        console.log(likelihood);
-        var error = req.params.name+" error: "+ contents.error;
-            console.log(error);
-    res.status(200).send({replyText:text,likelihoodText:likelihood,error:error,sound:sound})
+    var text ="Say: "+ contents.words[0].txt + " ";
+    var name =contents.username;
+
+    var likelihood =" likelihood: "+ contents.words[0].likelihood;
+
+    res.status(200).send({replyText:text,likelihoodText:likelihood,error,sound,contents,name})
 }
 
 

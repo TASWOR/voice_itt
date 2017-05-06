@@ -9,6 +9,8 @@ import Switch from 'react-toggle-switch'
 import Player from './Player.js'
 import './App.css';
 import Wavesurfer from 'react-wavesurfer';
+import JSONTree from 'react-json-tree';
+import { Map } from 'immutable'
 class List extends Component {
   constructor(props){
     super(props);
@@ -22,7 +24,9 @@ class List extends Component {
       switchUpdate:true,
       sound:'',
       playing: false,
-      pos: 0
+      pos: 0,
+      contents :'',
+      name
     }
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handlePosChange = this.handlePosChange.bind(this);
@@ -33,7 +37,7 @@ class List extends Component {
   resetPostion(){
     this.setState({
       pos: 0.0000001,
-      playing:false
+      playing:!this.state.playing
     });
   }
   handleTogglePlay() {
@@ -57,12 +61,18 @@ var text = data.replyText;
 var likelihood = data.likelihoodText;
 var error = data.error;
 var sound = data.sound;
+var contents =data;
+var name = data.name;
 component.setState({
   text,
   likelihood,
   selectFile,
   error,
-  sound
+  sound,
+  playing: false,
+  pos: 0.001,
+  contents,
+  name
 })
 })
 }
@@ -95,7 +105,10 @@ component.setState({
       });
       component.setState({
         files,
-        selectedUser
+        selectedUser,
+        sound:null,
+        playing: false,
+        pos: 0.001
       });
     });
   }
@@ -131,10 +144,7 @@ component.setState({
     },{
       header: 'text',
       accessor: 'text'
-    },{
-      header: 'sound',
-      accessor: 'sound'
-    } ]
+    }]
     //onMount
     return (
       <div>
@@ -150,9 +160,13 @@ component.setState({
       />
       <br />
       <ReactTable
-        defaultPageSize={15}
+      showPagination={false}
+
         data={this.state.files}
         columns={columns}
+        showPagination={true}
+        showPageSizeOptions = {false}
+        defaultPageSize={15}
         getTdProps={(state, rowInfo, column, instance) => {
           return {
             onClick: e => {
@@ -164,33 +178,46 @@ component.setState({
       }
 
       />
-      <div id="switch">
 
-            <Switch on={this.state.switchUpdate} onClick={()=>{
-              this.setState({
-                switchUpdate: !this.state.switchUpdate
-              });
-            }}>
-              <i class="some-icon"/>
-            </Switch>
-
-        </div>
       </div>
 
-              <div id="text">
-              {this.state.sound}
-              {console.log(this.state.users)}
-              {console.log(this.state.sound)}
+              <div id="center">
+              <font color="red">{this.state.name != "" ?"Name: " + this.state.name : " "}</font><br/>
+              {this.state.text}
+              <br/>
+              {this.state.likelihood}
+              <br/>
+              {this.state.error != "" ?" error: " + this.state.error : ""}<br/>
               <Wavesurfer
-                audioFile={"http://localhost:3000/users/"+this.state.selectedUser+"/recognize/"+this.state.sound+".wav"}
+                audioFile={this.state.sound != null ? "http://localhost:3000/users/"+this.state.selectedUser+"/recognize/"+this.state.sound+".wav" : undefined}
                 pos={this.state.pos}
                 onPosChange={this.handlePosChange}
                 playing={this.state.playing}
               />
-              <button onClick={this.handleTogglePlay}>Play/Pause</button>
-              <button onClick={this.resetPostion}>Reset</button>
+              <button onClick={this.resetPostion}>Play/Stop</button>
+
             </div>
+
+            <div id="right">
+
+            <div id="switch">
+
+                  <Switch on={this.state.switchUpdate} onClick={()=>{
+                    this.setState({
+                      switchUpdate: !this.state.switchUpdate
+                    });
+                  }}>
+                    <i class="some-icon"/>
+
+                  </Switch>
+                  <br/>
+                  On update/Off update
+
+              </div>
+
+            <JSONTree data={this.state.contents.contents} />
             </div>
+              </div>
     );
   }
 }
