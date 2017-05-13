@@ -49,6 +49,8 @@ app.get('/users/:name/recognize/:recognizeFileName', function(req,res)
 {
   fs.readFile("./users/"+req.params.name+"/recognize/"+req.params.recognizeFileName, function (err,data) {
     if (err) {
+
+      console.log(contents)
       res.writeHead(404);
       res.end(JSON.stringify(err));
       return;
@@ -60,10 +62,8 @@ app.get('/users/:name/recognize/:recognizeFileName', function(req,res)
 
 app.get('/users/:name/replies' ,(req,res) =>
 {
-// io.on('connection', function(socket){
-// console.log(socket);
-// });
 var namespaceName=`/users/${req.params.name}/replies`;
+console.log(namespaceName);
 if(io.nsps[namespaceName]!=undefined)
 {
 
@@ -74,10 +74,12 @@ else
     var namespace = io.of(namespaceName);
     var filename = `./users/${req.params.name}/replies`;
     fs.watch(filename, function(event, filename){
+      console.log(event)
       if(event =='rename')
       {
       namespace.emit('update',replyInformation(req.params.name,filename))
 }
+
     });
           namespace.emit('forceDisconnect');
   }
@@ -105,54 +107,33 @@ else
 app.get('/users/:name/replies/:repliesFileName', function(req,res)
 {
   fs.readFile('./users/'+req.params.name+'/replies/'+req.params.repliesFileName, (err, data) => {  //читает файлы
-    var content= data.toString();
-    var contents = JSON.parse(content);
-<<<<<<< HEAD
+    var contents = JSON.parse(data);
 
     var sound =contents.replykey;
     var error = contents.error;
-    console.log(contents)
     if (contents.words[0]==undefined){
-
-      res.status(200).send({replyText:'Empty Text', likelihoodText:'Empty Text', error, sound,contents,name})
+      res.status(200).send({replyText:'Empty Text', likelihoodText:'Empty Text'})
     }
+    else {
+      var text ="Say: "+ contents.words[0].txt + " ";
+      var name =contents.username;
 
-    else{
-    var text ="Say: "+ contents.words[0].txt + " ";
-    var name =contents.username;
-
-    var likelihood =" likelihood: "+ contents.words[0].likelihood;
-
-    res.status(200).send({replyText:text,likelihoodText:likelihood,error,sound,contents,name})
-=======
-
-    var sound =contents.replykey;
-    var error = contents.error;
-
-    if (contents.words[0]==undefined){
-      console.log('Empty Text')
-      res.status(200).send({replyText:'Empty Text', likelihoodText:'Empty Text', error, sound})
+      var likelihood =" likelihood: "+ contents.words[0].likelihood;
+      fs.readFile('./users/'+req.params.name+'/recognize/'+contents.replykey+'.json', (err,data) =>{
+        var recognize = JSON.parse(data);
+        var sr = 16000
+        var vad_off_time_in_samples = recognize.vad_off_time_in_samples / sr
+        var vad_on_time_in_samples = recognize.vad_on_time_in_samples /sr
+        var jsonInfo = {
+          contents,
+          vad_on_time_in_samples,
+          vad_off_time_in_samples
+        }
+        res.status(200).send({replyText:text,likelihoodText:likelihood,name,error,sound,jsonInfo})
+      });
     }
-
-    else{
-    var text = req.params.name+" say: "+ contents.words[0].txt + " ";
-    console.log(text);
-    var likelihood = req.params.name+" likelihood: "+ contents.words[0].likelihood;
-        console.log(likelihood);
-            console.log(error);
-    res.status(200).send({replyText:text,likelihoodText:likelihood,error,sound})
->>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
-}
-
-
   });
-
-
 })
-//redirect index.html
-//express authorization
-//express work with session/cookies
-
 server.listen(3333, function () {
   console.log('Example app listening on port 3333!');
 //  var filepath = './users/demo_ebony/replies/'

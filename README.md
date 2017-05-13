@@ -1,7 +1,7 @@
 ## Table of Contents
 - [Install](#install)
 - [Change localhost](#change-localhost)
-## Install1
+## Install
 1)You need to install node modules in server(root).
 Command:
 ```

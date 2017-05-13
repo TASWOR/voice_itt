@@ -9,11 +9,8 @@ import Switch from 'react-toggle-switch'
 import Player from './Player.js'
 import './App.css';
 import Wavesurfer from 'react-wavesurfer';
-<<<<<<< HEAD
 import JSONTree from 'react-json-tree';
 import { Map } from 'immutable'
-=======
->>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
 class List extends Component {
   constructor(props){
     super(props);
@@ -27,13 +24,11 @@ class List extends Component {
       switchUpdate:true,
       sound:'',
       playing: false,
-<<<<<<< HEAD
       pos: 0,
       contents :'',
+      likelihoodFilterOperation:'<=',
+      likelihoodFilterValue:'',
       name
-=======
-      pos: 0
->>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
     }
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handlePosChange = this.handlePosChange.bind(this);
@@ -44,11 +39,7 @@ class List extends Component {
   resetPostion(){
     this.setState({
       pos: 0.0000001,
-<<<<<<< HEAD
       playing:!this.state.playing
-=======
-      playing:false
->>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
     });
   }
   handleTogglePlay() {
@@ -72,11 +63,8 @@ var text = data.replyText;
 var likelihood = data.likelihoodText;
 var error = data.error;
 var sound = data.sound;
-<<<<<<< HEAD
 var contents =data;
 var name = data.name;
-=======
->>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
 component.setState({
   text,
   likelihood,
@@ -84,13 +72,9 @@ component.setState({
   error,
   sound,
   playing: false,
-<<<<<<< HEAD
   pos: 0.001,
   contents,
   name
-=======
-  pos: 0.001
->>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
 })
 })
 }
@@ -154,26 +138,77 @@ component.setState({
   render() {
     const columns = [{
       header: 'Name File',
-      accessor: 'timestamp' // String-based value accessors!
+      accessor: 'timestamp', // String-based value accessors!
+      filterMethod: (filter, row) => (row[filter.id].includes(filter.value))
     }, {
+      header: 'text',
+      accessor: 'text',// Custom cell components!
+      filterMethod: (filter, row) => (row[filter.id].includes(filter.value))
+    },{
       header: 'likelihood',
       accessor: 'likelihood',
-      render: props => <span className='number'>{props.value}</span> // Custom cell components!
-    },{
-      header: 'text',
-      accessor: 'text'
-<<<<<<< HEAD
-    }]
-=======
-    },{
-      header: 'sound',
-      accessor: 'sound'
-    } ]
->>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
-    //onMount
+      filterMethod: (filter, row) => {
+      console.log({filter, row});
+      if("all" == filter.value.operation){
+       return true;
+       }
+       if(row[filter.id] == "Empty text"){
+         return false;
+       }
+       if("<=" == filter.value.operation){
+         return row[filter.id] <= filter.value.value;
+       }
+       if(">" == filter.value.operation){
+         return row[filter.id] > filter.value.value;
+       }
+
+       if(">=" == filter.value.operation){
+         return row[filter.id] >= filter.value.value;
+       }
+       if("=" == filter.value.operation){
+         return row[filter.id] == filter.value.value;
+       }
+       if("<" == filter.value.operation){
+         return row[filter.id] < filter.value.value;
+       }
+},
+filterRender: ({filter, onFilterChange}) =>{
+  return (
+  <div>
+  <select
+    onChange={
+      event => {
+        var value = event.target.value;
+        //this.setState({likelihoodFilterOperation: value})
+        onFilterChange({operation: value, value: (filter ? filter.value.value : 0) })
+      }
+    }
+    value={filter ? filter.value.operation : 'all'}>
+    <option value="all">All</option>
+    <option value="=">=</option>
+    <option value=">">&gt;</option>
+    <option value="<=">&lt;=</option>
+
+
+    <option value="<">&lt;</option>
+    <option value=">=">&gt;=</option>
+  </select>
+  <input
+    onChange={
+      event => {
+        var value = event.target.value;
+        onFilterChange({operation: (filter ? filter.value.operation : 'all'), value: value})
+      }
+    }
+    value={filter ? filter.value.value : 0}/>
+  </div>
+)}
+}]
+const theme = {base00: '#272822'};
     return (
       <div>
       <div id ="menu">
+
       <Select
       placeholder = {'Pick user'}
       clearable= {false}
@@ -186,12 +221,12 @@ component.setState({
       <br />
       <ReactTable
       showPagination={false}
-
+       showFilters={true}
         data={this.state.files}
         columns={columns}
         showPagination={true}
         showPageSizeOptions = {false}
-        defaultPageSize={15}
+        defaultPageSize={13}
         getTdProps={(state, rowInfo, column, instance) => {
           return {
             onClick: e => {
@@ -205,7 +240,6 @@ component.setState({
       />
 
       </div>
-<<<<<<< HEAD
 
               <div id="center">
               <font color="red">{this.state.name != "" ?"Name: " + this.state.name : " "}</font><br/>
@@ -237,32 +271,16 @@ component.setState({
 
                   </Switch>
                   <br/>
-                  On update/Off update
+                    Off update/On update
 
               </div>
 
-            <JSONTree data={this.state.contents.contents} />
-            </div>
-              </div>
-=======
+            <JSONTree data={this.state.contents.jsonInfo}
+            theme={theme} />
 
-              <div id="text">
-              {this.state.sound}
-              <br/>
-              {this.state.error != "" ?" error: " + this.state.error : ""}<br/>
-              {console.log(this.state.users)}
-              {console.log(this.state.sound)}
-              <Wavesurfer
-                audioFile={this.state.sound != null ? "http://localhost:3000/users/"+this.state.selectedUser+"/recognize/"+this.state.sound+".wav" : undefined}
-                pos={this.state.pos}
-                onPosChange={this.handlePosChange}
-                playing={this.state.playing}
-              />
-              <button onClick={this.handleTogglePlay}>Play/Pause</button>
-              <button onClick={this.resetPostion}>Reset</button>
+
             </div>
-            </div>
->>>>>>> cbcac8b36dd12d9dbaf07ae759356f82693001f8
+        </div>
     );
   }
 }
