@@ -10,6 +10,10 @@ import Player from './Player.js'
 import './App.css';
 import Wavesurfer from 'react-wavesurfer';
 import JSONTree from 'react-json-tree';
+window.WaveSurfer = require("wavesurfer.js");
+let Timeline = require("react-wavesurfer/lib/plugins/timeline").default;
+let Regions = require("react-wavesurfer/lib/plugins/regions").default;
+
 import { Map } from 'immutable'
 class List extends Component {
   constructor(props){
@@ -18,65 +22,43 @@ class List extends Component {
       users:[],
       files:[],
       text:'',
-      selectedUser:'',
+      selectedUser:null,
       selectFile:'',
       error:'',
       switchUpdate:true,
-      sound:'',
-      playing: false,
-      pos: 0,
+      sound:null,
       contents :'',
       likelihoodFilterOperation:'<=',
       likelihoodFilterValue:'',
       name
     }
-    this.handleTogglePlay = this.handleTogglePlay.bind(this);
-    this.handlePosChange = this.handlePosChange.bind(this);
-    this.resetPostion = this.resetPostion.bind(this);
   }
 
 
-  resetPostion(){
-    this.setState({
-      pos: 0.0000001,
-      playing:!this.state.playing
-    });
-  }
-  handleTogglePlay() {
-    this.setState({
-      playing: !this.state.playing
-    });
-  }
-  handlePosChange(e) {
-    this.setState({
-      pos: e.originalArgs[0]
-    });
-  }
+
 
 readText(repliesFileName)
 {
   var component=this;
   $.get ('users/'+this.state.selectedUser+'/replies/'+repliesFileName , function(data)
-{
-  var selectFile = repliesFileName
-var text = data.replyText;
-var likelihood = data.likelihoodText;
-var error = data.error;
-var sound = data.sound;
-var contents =data;
-var name = data.name;
-component.setState({
-  text,
-  likelihood,
-  selectFile,
-  error,
-  sound,
-  playing: false,
-  pos: 0.001,
-  contents,
-  name
-})
-})
+  {
+    var selectFile = repliesFileName
+    var text = data.replyText;
+    var likelihood = data.likelihoodText;
+    var error = data.error;
+    var sound = data.sound;
+    var contents =data;
+    var name = data.name;
+    component.setState({
+      text,
+      likelihood,
+      selectFile,
+      error,
+      sound,
+      contents,
+      name
+    })
+  })
 }
 
   addName(name)
@@ -204,6 +186,7 @@ filterRender: ({filter, onFilterChange}) =>{
   </div>
 )}
 }]
+
 const theme = {base00: '#272822'};
     return (
       <div>
@@ -247,14 +230,17 @@ const theme = {base00: '#272822'};
               <br/>
               {this.state.likelihood}
               <br/>
-              {this.state.error != "" ?" error: " + this.state.error : ""}<br/>
-              <Wavesurfer
-                audioFile={this.state.sound != null ? "http://localhost:3000/users/"+this.state.selectedUser+"/recognize/"+this.state.sound+".wav" : undefined}
-                pos={this.state.pos}
-                onPosChange={this.handlePosChange}
-                playing={this.state.playing}
+              {this.state.error != "" ?" error: " + this.state.error : ""}
+              {this.state.sound != null ?" Sound: " + this.state.sound : ""}<br/>
+              <Player
+                sound = {this.state.sound}
+                selectedUser = {this.state.selectedUser}
+                firstRegionStart = {this.state.contents.jsonInfo && this.state.contents.jsonInfo.vad_on_time_in_samples}
+                firstRegionEnd = {this.state.contents.jsonInfo && this.state.contents.jsonInfo.vad_off_time_in_samples}
+                secondRegionStart = {this.state.contents.jsonInfo && this.state.contents.jsonInfo.contents.time_offset_in_probe[0]}
+                secondRegionEnd = {this.state.contents.jsonInfo && this.state.contents.jsonInfo.contents.time_offset_in_probe[1]}
+
               />
-              <button onClick={this.resetPostion}>Play/Stop</button>
 
             </div>
 
