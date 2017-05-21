@@ -3,14 +3,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import ReactTable from 'react-table';
+var $ = require("jquery");
 
 class Table extends Component {
   constructor(props) {
       super(props);
-      this.state={
-      }
-
     }
+
     render() {
       const columns = [{
         header: 'Name File',
@@ -90,10 +89,7 @@ class Table extends Component {
           defaultPageSize={13}
           getTdProps={(state, rowInfo, column, instance) => {
             return {
-              onClick: e => {
-              this.readText(rowInfo.row.timestamp);
-
-              }
+              onClick: e => {this.props.onRowClick(rowInfo.row.timestamp);}
             }
           }
         }
