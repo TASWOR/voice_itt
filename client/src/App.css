@@ -99,22 +99,25 @@ font-weight: 600;
     width:345px;
     padding-top:10px;
     padding-left:20px;
+    float: left;
 }
 #center{
   font-weight: 900;
 text-align: center;
-margin-top: -600px;
 width: 260px;
-margin-left: 550px;
+padding-top:10px;
+padding-left: 180px;
+float: left;
 
 
 }
 #right{
     font-weight: 900;
     text-align: center;
-  margin-left: 951px;
+    padding-top:10px;
+    padding-left: 180px;
   width: 280px;
-  margin-top: -245px;
+  float: left;
 }
 .has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
   color: #333;

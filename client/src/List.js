@@ -103,21 +103,22 @@ readText(repliesFileName){
   render() {
   return (
       <div>
-      <div id ="menu">
-      <Select
-      placeholder = {'Pick user'}
-      clearable= {false}
-      autosize  ={false}
-      value={ this.state.selectedUser}
-      options={this.state.users}
-      onChange={val =>this.addName(val.value)}
-      />
-      <br />
-      <Table
-        files = {this.state.files}
-        onRowClick = {this.readText.bind(this)}
-      />
-      </div>
+              <div id ="menu">
+              <Select
+              placeholder = {'Pick user'}
+              clearable= {false}
+              autosize  ={false}
+              value={ this.state.selectedUser}
+              options={this.state.users}
+              onChange={val =>this.addName(val.value)}
+              />
+              <br />
+              <Table
+                files = {this.state.files}
+                onRowClick = {this.readText.bind(this)}
+              />
+              </div>
+
               <div id="center">
               <SoundInfo
                 name = {this.state.name}
@@ -132,24 +133,24 @@ readText(repliesFileName){
                 firstRegionEnd = {this.state.contents.jsonInfo && this.state.contents.jsonInfo.vad_off_time_in_samples}
                 secondRegionStart = {this.state.contents.jsonInfo && this.state.contents.jsonInfo.contents.time_offset_in_probe[0]}
                 secondRegionEnd = {this.state.contents.jsonInfo && this.state.contents.jsonInfo.contents.time_offset_in_probe[1]} />
-      </div>
+                </div>
             <div id="right">
-            <div id="switch">
-                  <Switch on={this.state.switchUpdate} onClick={()=>{
-                    this.setState({
-                      switchUpdate: !this.state.switchUpdate
-                    });
-                  }}>
-                    <i class="some-icon"/>
-                  </Switch>
-                  <br/>
-                    Off update/On update
-              </div>
-            <JsonRead
-            jsonInfo={this.state.contents.jsonInfo}
-            />
+              <div id="switch">
+                    <Switch on={this.state.switchUpdate} onClick={()=>{
+                      this.setState({
+                        switchUpdate: !this.state.switchUpdate
+                      });
+                    }}>
+                      <i class="some-icon"/>
+                    </Switch>
+                    <br/>
+                      Off update/On update
+                </div>{this.state.contents.jsonInfo&&
+                    <JsonRead
+                    jsonInfo={this.state.contents.jsonInfo}
+                    />}
             </div>
-        </div>
+            </div>
     );
   }
 }

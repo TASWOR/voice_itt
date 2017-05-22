@@ -8,7 +8,6 @@ var bodyParser = require('body-parser')
 var json =  './users/';
 var replies = '/replies/';
 
-
 app.get('/users/names' , (req,res) =>{
   fs.readdir(json,(err,files)=> //все файлы показывает в пути
   {
@@ -136,11 +135,6 @@ app.get('/users/:name/replies/:repliesFileName', function(req,res)
 })
 server.listen(3333, function () {
   console.log('Example app listening on port 3333!');
-//  var filepath = './users/demo_ebony/replies/'
-  // fs.watch(filepath, function(event, filename){
-  //  console.log(event)
-  //  console.log(filename)
-  // });
 });
 
 module.exports = app;

@@ -1,9 +1,6 @@
-//Доделать
-
 import React, { Component } from 'react';
 import './App.css';
 import ReactTable from 'react-table';
-var $ = require("jquery");
 
 class Table extends Component {
   constructor(props) {
@@ -24,26 +21,26 @@ class Table extends Component {
         accessor: 'likelihood',
         filterMethod: (filter, row) => {
         console.log({filter, row});
-        if("all" == filter.value.operation){
+        if("all" === filter.value.operation){
          return true;
          }
-         if(row[filter.id] == "Empty text"){
+         if(row[filter.id] === "Empty text"){
            return false;
          }
-         if("<=" == filter.value.operation){
+         if("<=" === filter.value.operation){
            return row[filter.id] <= filter.value.value;
          }
-         if(">" == filter.value.operation){
+         if(">" === filter.value.operation){
            return row[filter.id] > filter.value.value;
          }
 
-         if(">=" == filter.value.operation){
+         if(">=" === filter.value.operation){
            return row[filter.id] >= filter.value.value;
          }
-         if("=" == filter.value.operation){
-           return row[filter.id] == filter.value.value;
+         if("=" === filter.value.operation){
+           return row[filter.id] === filter.value.value;
          }
-         if("<" == filter.value.operation){
+         if("<" === filter.value.operation){
            return row[filter.id] < filter.value.value;
          }
   },
