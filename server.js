@@ -8,6 +8,8 @@ var bodyParser = require('body-parser')
 var json =  './users/';
 var replies = '/replies/';
 
+app.use(express.static("client/build/"))
+
 app.get('/users/names' , (req,res) =>{
   fs.readdir(json,(err,files)=> //все файлы показывает в пути
   {
@@ -59,28 +61,29 @@ app.get('/users/:name/recognize/:recognizeFileName', function(req,res)
   });
 })
 
-app.get('/users/:name/replies' ,(req,res) =>
+app.get('/users/:name/replies', (req,res) =>
 {
-var namespaceName=`/users/${req.params.name}/replies`;
-console.log(namespaceName);
-if(io.nsps[namespaceName]!=undefined)
-{
-
-}
-else
+  var namespaceName=`/users/${req.params.name}/replies`;
+  console.log(namespaceName);
+  if(io.nsps[namespaceName]!=undefined)
   {
-
+    console.log(`${namespaceName} is already created`);
+  }
+  else
+  {
+    console.log(`creating ${namespaceName}`);
     var namespace = io.of(namespaceName);
     var filename = `./users/${req.params.name}/replies`;
     fs.watch(filename, function(event, filename){
       console.log(event)
       if(event =='rename')
       {
-      namespace.emit('update',replyInformation(req.params.name,filename))
-}
+        setTimeout(()=>{
+          namespace.emit('update',replyInformation(req.params.name,filename))
+        }, 500);
+      }
 
     });
-          namespace.emit('forceDisconnect');
   }
 
   fs.readdir(json+req.params.name+replies,(err,fileUser)=>
@@ -133,8 +136,11 @@ app.get('/users/:name/replies/:repliesFileName', function(req,res)
     }
   });
 })
-server.listen(3333, function () {
-  console.log('Example app listening on port 3333!');
+
+const port = process.env.PORT || 3333;
+
+server.listen(port, function () {
+  console.log(`Example app listening on port ${port} !`);
 });
 
 module.exports = app;

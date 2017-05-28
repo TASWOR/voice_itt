@@ -33,7 +33,7 @@ class Player extends Component {
       return (this.props.sound && this.props.selectedUser &&
           <div>
           <Wavesurfer
-              audioFile={"http://localhost:3000/users/"+this.props.selectedUser+"/recognize/"+this.props.sound+".wav"}
+              audioFile={"/users/"+this.props.selectedUser+"/recognize/"+this.props.sound+".wav"}
               pos={this.state.pos}
               onPosChange={this.handlePosChange}
               playing={this.state.playing}>

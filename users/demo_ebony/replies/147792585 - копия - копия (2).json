@@ -1,0 +1,1 @@
+{"username":"demo_kenneth","replykey":"1483542376373","words":[{"txt":"raindrops","likelihood":1},{"txt":"1477925858144","likelihood":-1.0}],"error":"","ood_reason":"","time_offset_in_probe":[0.06,0.84],"algorithm":"subDtw"}

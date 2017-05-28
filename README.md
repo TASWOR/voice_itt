@@ -29,10 +29,4 @@ npm start
 Change localhost in file :
 ```
 client\node_modules\react-scripts\scripts\start.js
-
-```
-Command:
-```
-export PORT=3131
-
 ```

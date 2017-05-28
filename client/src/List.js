@@ -27,6 +27,7 @@ class List extends Component {
       contents :'',
       likelihoodFilterOperation:'<=',
       likelihoodFilterValue:'',
+      socketForUpdate:null,
       name
     }
   }
@@ -41,6 +42,11 @@ readText(repliesFileName){
     var sound = data.sound;
     var contents =data;
     var name = data.name;
+
+    component.setState({
+      sound:null
+    })
+
     component.setState({
       text,
       likelihood,
@@ -54,20 +60,24 @@ readText(repliesFileName){
 }
 
   addName(name)  {
-    var qqq = io;
-    console.log(qqq);
     var component = this;
-    $.get ('users/'+name+'/replies', function(data){
+    $.get ('users/'+name+'/replies', data => {
       var selectedUser = name;
       var files = data.fileNames;
-      var socket = io('/users/' + name + '/replies');
-      socket.on('connection', socket => {
+      if (this.state.socketForUpdate !=null)
+      {
+        this.state.socketForUpdate.close()
+        this.state.socketForUpdate.disconnect()
+        console.log("closing socket for "+this.state.socketForUpdate)
+      }
+      var socketForUpdate = io('/users/' + name + '/replies');
+      socketForUpdate.on('connection', socketForUpdate => {
         console.log('connected');
       });
-      socket.on('disconnect', function(){
-      socket.disconnect();
+      socketForUpdate.on('disconnect', function(){
+      socketForUpdate.disconnect();
      });
-      socket.on('update', data => {
+      socketForUpdate.on('update', data => {
          if(component.state.switchUpdate==true)
          {
            component.readText(data.timestamp);
@@ -81,7 +91,8 @@ readText(repliesFileName){
         selectedUser,
         sound:null,
         playing: false,
-        pos: 0.001
+        pos: 0.001,
+        socketForUpdate
       });
     });
   }
