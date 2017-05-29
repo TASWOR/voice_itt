@@ -11,11 +11,9 @@ var replies = '/replies/';
 app.use(express.static("client/build/"))
 
 app.get('/users/names' , (req,res) =>{
-  fs.readdir(json,(err,files)=> //все файлы показывает в пути
-  {
+  fs.readdir(json,(err,files)=> {
 
-    if(err)
-    {
+    if(err) {
       res.status(500).send();
     }
     else {
@@ -24,34 +22,25 @@ app.get('/users/names' , (req,res) =>{
   });
 });
 
-var replyInformation = function(name ,filename)
-{
-  var timestamp=filename;
-  var content =   fs.readFileSync('./users/'+name+'/replies/'+filename)
-  var contents = JSON.parse(content);
+var replyInformation = function(name ,filename){
+  var contents = JSON.parse(fs.readFileSync('./users/'+name+'/replies/'+filename));
   var likelihood = 'Empty text';
   var text = 'Empty text';
-  var sound = contents.replykey;
-
   if (contents.words[0]!=undefined){
      text = contents.words[0].txt;
      likelihood = contents.words[0].likelihood;
   }
   return {
-    timestamp,
+    timestamp:filename,
     likelihood,
     text,
-    sound
-
+    sound:contents.replykey
   }
 }
 
-app.get('/users/:name/recognize/:recognizeFileName', function(req,res)
-{
+app.get('/users/:name/recognize/:recognizeFileName', function(req,res){
   fs.readFile("./users/"+req.params.name+"/recognize/"+req.params.recognizeFileName, function (err,data) {
     if (err) {
-
-      console.log(contents)
       res.writeHead(404);
       res.end(JSON.stringify(err));
       return;
@@ -61,43 +50,29 @@ app.get('/users/:name/recognize/:recognizeFileName', function(req,res)
   });
 })
 
-app.get('/users/:name/replies', (req,res) =>
-{
+app.get('/users/:name/replies', (req,res) =>{
   var namespaceName=`/users/${req.params.name}/replies`;
-  console.log(namespaceName);
-  if(io.nsps[namespaceName]!=undefined)
-  {
-    console.log(`${namespaceName} is already created`);
+  if(io.nsps[namespaceName]!=undefined){
   }
-  else
-  {
-    console.log(`creating ${namespaceName}`);
+  else{
     var namespace = io.of(namespaceName);
     var filename = `./users/${req.params.name}/replies`;
     fs.watch(filename, function(event, filename){
-      console.log(event)
-      if(event =='rename')
-      {
+      if(event =='rename'){
         setTimeout(()=>{
           namespace.emit('update',replyInformation(req.params.name,filename))
         }, 500);
       }
-
     });
   }
-
-  fs.readdir(json+req.params.name+replies,(err,fileUser)=>
-  {
-    if(err)
-    {
+  fs.readdir(json+req.params.name+replies,(err,fileUser)=>{
+    if(err){
       res.status(500).send();
     }
     else {
       var goodJson=[];
-      for(var i=0;i<fileUser.length;i++)
-      {
-        if(fileUser[i].endsWith(".json"))
-        {
+      for(var i=0;i<fileUser.length;i++){
+        if(fileUser[i].endsWith(".json")){
           goodJson.push(replyInformation(req.params.name,fileUser[i]));
         }
       }
@@ -110,7 +85,6 @@ app.get('/users/:name/replies/:repliesFileName', function(req,res)
 {
   fs.readFile('./users/'+req.params.name+'/replies/'+req.params.repliesFileName, (err, data) => {  //читает файлы
     var contents = JSON.parse(data);
-
     var sound =contents.replykey;
     var error = contents.error;
     if (contents.words[0]==undefined){
@@ -119,17 +93,13 @@ app.get('/users/:name/replies/:repliesFileName', function(req,res)
     else {
       var text ="Say: "+ contents.words[0].txt + " ";
       var name =contents.username;
-
       var likelihood =" likelihood: "+ contents.words[0].likelihood;
       fs.readFile('./users/'+req.params.name+'/recognize/'+contents.replykey+'.json', (err,data) =>{
         var recognize = JSON.parse(data);
-        var sr = 16000
-        var vad_off_time_in_samples = recognize.vad_off_time_in_samples / sr
-        var vad_on_time_in_samples = recognize.vad_on_time_in_samples /sr
         var jsonInfo = {
           contents,
-          vad_on_time_in_samples,
-          vad_off_time_in_samples
+          vad_on_time_in_samples:recognize.vad_on_time_in_samples /16000,
+          vad_off_time_in_samples:recognize.vad_off_time_in_samples / 16000
         }
         res.status(200).send({replyText:text,likelihoodText:likelihood,name,error,sound,jsonInfo})
       });
@@ -140,7 +110,7 @@ app.get('/users/:name/replies/:repliesFileName', function(req,res)
 const port = process.env.PORT || 3333;
 
 server.listen(port, function () {
-  console.log(`Example app listening on port ${port} !`);
+  console.log(`Server connecting to port ${port}!`);
 });
 
 module.exports = app;

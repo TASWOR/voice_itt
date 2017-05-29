@@ -6,37 +6,15 @@ let Timeline = require("react-wavesurfer/lib/plugins/timeline").default;
 let Regions = require("react-wavesurfer/lib/plugins/regions").default;
 
 class Player extends Component {
-  constructor(props) {
-      super(props);
-      this.state={
-        playing: false,
-        pos: 0.0000001
-      }
-      this.handlePosChange = this.handlePosChange.bind(this);
-      this.resetPostion = this.resetPostion.bind(this);
-    }
-
-    resetPostion(){
-      this.setState({
-        pos: 0.0000001,
-        playing: !this.state.playing
-      });
-    }
-
-    handlePosChange(e) {
-      this.setState({
-        pos: e.originalArgs[0]
-      });
-    }
 
     render() {
-      return (this.props.sound && this.props.selectedUser &&
+      return ((this.props.sound && this.props.selectedUser) &&
           <div>
           <Wavesurfer
               audioFile={"/users/"+this.props.selectedUser+"/recognize/"+this.props.sound+".wav"}
-              pos={this.state.pos}
-              onPosChange={this.handlePosChange}
-              playing={this.state.playing}>
+              pos={this.props.audioState.pos}
+              onPosChange={this.props.handlePosChange}
+              playing={this.props.audioState.playing}>
 
               <Timeline
                 options={{
@@ -52,18 +30,25 @@ class Player extends Component {
               <Regions regions={{
                 One: {
                   start: this.props.firstRegionStart,
-                  end: this.props.firstRegionEnd
+                  end: this.props.firstRegionEnd,
+                  drag:false,
+                  resize:false,
+                  color: 'hsla(255, 10%, 10%, 0.3)'
                 },
                 Two: {
-                  start: this.props.secondRegionStart,
-                  end: this.props.secondRegionEnd
+                  start:this.props.secondRegionStart,
+                  end:this.props.secondRegionEnd,
+                  drag:false,
+                  resize:false,
+                  color: 'hsla(5, 10%, 10%, 0.3)'
                 }
               }} />
 
-              <button onClick={this.resetPostion}>Play/Stop</button>
+              <button onClick={this.props.resetPostion}>Play/Stop</button>
           </Wavesurfer>
           </div>
-      ) || null;
+          || null
+      );
     }
   }
 export default Player;

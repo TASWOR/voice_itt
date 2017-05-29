@@ -1,32 +1,23 @@
 ## Table of Contents
 - [Install](#install)
 - [Change localhost](#change-localhost)
+
 ## Install
 1)You need to install node modules in server(root).
-Command:
-```
-npm install
-```
-2)You need go to folder client.
-Command:
-```
-cd client
-```
-3)You need to install node modules in client.
-```
-npm install
-```
-4)You need go back in folder client(root)
 
+Command:
 ```
-cd..
+npm install
 ```
-5)Write a command to start project.
+
+2)Run command to start project.
 ```
-npm start
+npm run server
 ```
+
 ## Change localhost
-Change localhost in file :
+
+Command:
 ```
-client\node_modules\react-scripts\scripts\start.js
+export PORT=3131
 ```

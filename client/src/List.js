@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import { Link } from 'react-router'
 var $ = require("jquery");
 import io from 'socket.io-client';
 var Select = require('react-select');
@@ -10,7 +8,6 @@ import Player from './Player.js'
 import JsonRead from './JsonRead.js'
 import Table from './Table.js'
 import './App.css';
-import { Map } from 'immutable'
 
 class List extends Component {
   constructor(props){
@@ -28,6 +25,8 @@ class List extends Component {
       likelihoodFilterOperation:'<=',
       likelihoodFilterValue:'',
       socketForUpdate:null,
+      playing: false,
+      pos: 0.001,
       name
     }
   }
@@ -35,26 +34,20 @@ class List extends Component {
 readText(repliesFileName){
   var component=this;
   $.get ('users/'+this.state.selectedUser+'/replies/'+repliesFileName , function(data){
-    var selectFile = repliesFileName
-    var text = data.replyText;
-    var likelihood = data.likelihoodText;
-    var error = data.error;
-    var sound = data.sound;
-    var contents =data;
-    var name = data.name;
-
     component.setState({
       sound:null
     })
 
     component.setState({
-      text,
-      likelihood,
-      selectFile,
-      error,
-      sound,
-      contents,
-      name
+      text:data.replyText,
+      likelihood:data.likelihoodText,
+      selectFile:repliesFileName,
+      error:data.error,
+      sound:data.sound,
+      contents:data,
+      name:data.name,
+      playing: false,
+      pos:0.00001
     })
   })
 }
@@ -62,23 +55,19 @@ readText(repliesFileName){
   addName(name)  {
     var component = this;
     $.get ('users/'+name+'/replies', data => {
-      var selectedUser = name;
-      var files = data.fileNames;
       if (this.state.socketForUpdate !=null)
       {
         this.state.socketForUpdate.close()
         this.state.socketForUpdate.disconnect()
-        console.log("closing socket for "+this.state.socketForUpdate)
       }
       var socketForUpdate = io('/users/' + name + '/replies');
       socketForUpdate.on('connection', socketForUpdate => {
-        console.log('connected');
       });
       socketForUpdate.on('disconnect', function(){
       socketForUpdate.disconnect();
      });
       socketForUpdate.on('update', data => {
-         if(component.state.switchUpdate==true)
+         if(component.state.switchUpdate===true)
          {
            component.readText(data.timestamp);
          }
@@ -87,8 +76,8 @@ readText(repliesFileName){
         });
       });
       component.setState({
-        files,
-        selectedUser,
+        files:data.fileNames,
+        selectedUser:name,
         sound:null,
         playing: false,
         pos: 0.001,
@@ -96,10 +85,24 @@ readText(repliesFileName){
       });
     });
   }
+
+  handlePosChange = e => {
+    this.setState({
+      pos: e.originalArgs[0]
+    });
+  }
+
+  resetPostion = () => {
+    this.setState({
+      pos: 0.0000001,
+      playing: !this.state.playing
+    });
+  }
+
   updateNames(){
     var component = this;
     $.get('users/names', function(data){
-      var users=data.userNames.map(name=>{
+      var users = data.userNames.map(name => {
         return {value:name,label:name}
       });
       component.setState({ //
@@ -109,41 +112,44 @@ readText(repliesFileName){
   }
   componentWillMount(){
     this.updateNames();
-    console.log(this.state.users);
   }
   render() {
   return (
       <div>
-              <div id ="menu">
+              <div id="menu">
               <Select
-              placeholder = {'Pick user'}
-              clearable= {false}
-              autosize  ={false}
-              value={ this.state.selectedUser}
+              placeholder={'Pick user'}
+              clearable={false}
+              autosize={false}
+              value={this.state.selectedUser}
               options={this.state.users}
               onChange={val =>this.addName(val.value)}
               />
               <br />
               <Table
-                files = {this.state.files}
-                onRowClick = {this.readText.bind(this)}
+                files={this.state.files}
+                onRowClick={this.readText.bind(this)}
               />
               </div>
 
               <div id="center">
               <SoundInfo
-                name = {this.state.name}
-                text = {this.state.text}
-                error = {this.state.error}
-                likelihood = {this.state.likelihood}
-                sound = {this.state.sound} />
+                name={this.state.name}
+                text={this.state.text}
+                error={this.state.error}
+                likelihood={this.state.likelihood}
+                sound={this.state.sound} />
               <Player
-                sound = {this.state.sound}
-                selectedUser = {this.state.selectedUser}
-                firstRegionStart = {this.state.contents.jsonInfo && this.state.contents.jsonInfo.vad_on_time_in_samples}
-                firstRegionEnd = {this.state.contents.jsonInfo && this.state.contents.jsonInfo.vad_off_time_in_samples}
-                secondRegionStart = {this.state.contents.jsonInfo && this.state.contents.jsonInfo.contents.time_offset_in_probe[0]}
-                secondRegionEnd = {this.state.contents.jsonInfo && this.state.contents.jsonInfo.contents.time_offset_in_probe[1]} />
+                sound={this.state.sound}
+                selectedUser={this.state.selectedUser}
+                firstRegionStart={this.state.contents.jsonInfo && this.state.contents.jsonInfo.vad_on_time_in_samples+this.state.contents.jsonInfo.contents.time_offset_in_probe[0]}
+                firstRegionEnd={this.state.contents.jsonInfo && this.state.contents.jsonInfo.vad_on_time_in_samples+this.state.contents.jsonInfo.contents.time_offset_in_probe[1]}
+                secondRegionStart={this.state.contents.jsonInfo && this.state.contents.jsonInfo.vad_on_time_in_samples}
+                secondRegionEnd={this.state.contents.jsonInfo && this.state.contents.jsonInfo.vad_off_time_in_samples}
+                audioState={{pos: this.state.pos, playing: this.state.playing}}
+                resetPostion={this.resetPostion}
+                handlePosChange={this.handlePosChange}
+              />
                 </div>
             <div id="right">
               <div id="switch">
@@ -152,7 +158,7 @@ readText(repliesFileName){
                         switchUpdate: !this.state.switchUpdate
                       });
                     }}>
-                      <i class="some-icon"/>
+                      <i className="some-icon"/>
                     </Switch>
                     <br/>
                       Off update/On update

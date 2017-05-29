@@ -3,9 +3,6 @@ import './App.css';
 import JSONTree from 'react-json-tree';
 
 class JsonRead extends Component {
-  constructor(props) {
-      super(props);
-    }
 
     render() {
       const theme = {base00: '#272822'};

@@ -3,9 +3,6 @@ import './App.css';
 import ReactTable from 'react-table';
 
 class Table extends Component {
-  constructor(props) {
-      super(props);
-    }
 
     render() {
       const columns = [{
@@ -77,12 +74,11 @@ class Table extends Component {
   }]
       return (
         <ReactTable
-        showPagination={false}
          showFilters={true}
           data={this.props.files}
           columns={columns}
           showPagination={true}
-          showPageSizeOptions = {false}
+          showPageSizeOptions={false}
           defaultPageSize={13}
           getTdProps={(state, rowInfo, column, instance) => {
             return {
